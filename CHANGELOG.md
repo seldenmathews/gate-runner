@@ -2,6 +2,10 @@
 
 ## 1.0.0 - 2026-10-30
 
+### Fixed
+
+- iOS launch no longer loads three's CommonJS entry. That file calls `process.emitWarning`, which Hermes does not implement, so Expo Go crashed on the first 3D screen. Metro now resolves `three` to `build/three.module.js`.
+
 ### Added
 
 - Expo SDK 58 app with a low-poly lane runner: drag steering, follow camera, math gates, and an instanced squad.

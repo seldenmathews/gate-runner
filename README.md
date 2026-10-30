@@ -48,6 +48,8 @@ src/app        expo-router screens
 
 `step(state, input, dt)` mutates one `GameState` and is deterministic: same state, same input, same dt, same result. There is no `Math.random` in the sim. Squad members are a count plus a formation, not hundreds of simulated bodies. The renderer writes that formation into `InstancedMesh`es, capped at 240 soldiers, which is what keeps a full crowd cheap on an iPhone 12-class GPU.
 
+`metro.config.js` resolves the `three` package to `build/three.module.js`. The package's `require` export is `build/three.cjs`, which calls `process.emitWarning` while it is loading. Hermes does not implement that, and `@react-three/fiber/native` loads three with `require`, so Expo Go crashed before the first frame. `npm run audit:ios` exports the iOS bundle and fails if that call (or `THREE_CJS_DEPRECATED`) is still in it.
+
 Progress is a small JSON document in `expo-sqlite` (`expo-sqlite/kv-store`) on device and `localStorage` on web. Winning a level unlocks the next one and keeps the best score.
 
 ## Add a level

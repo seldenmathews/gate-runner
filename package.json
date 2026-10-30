@@ -31,6 +31,7 @@
     "three": "^0.187.0"
   },
   "devDependencies": {
+    "@types/node": "^26.6.6",
     "@types/react": "~19.3.0",
     "@types/three": "^0.187.0",
     "eslint": "^9.39.5",
@@ -49,7 +50,8 @@
     "lint": "expo lint",
     "test": "jest --ci",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "audit:ios": "expo export --platform ios --output-dir dist/ios && node scripts/audit-ios-bundle.mjs dist/ios"
   },
   "private": true,
   "engines": {
