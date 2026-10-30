@@ -35,8 +35,6 @@
     { "id": "p2", "z": 360, "x": 0, "kind": "gold", "amount": 200 },
     { "id": "p3", "z": 500, "x": 2.1, "kind": "rate", "amount": 0.5 }
   ],
-  "banners": [
-    { "z": 210, "until": 300, "text": "SHOOT /2 UNTIL IT BECOMES x2" }
-  ],
+  "banners": [{ "z": 210, "until": 300, "text": "SHOOT /2 UNTIL IT BECOMES x2" }],
   "finale": { "kind": "boss", "name": "Gate Warden", "hp": 240, "dps": 0.85, "duration": 8 }
 }
