@@ -1,0 +1,64 @@
+{
+  "id": "3",
+  "name": "Glitch Mile",
+  "brief": "Two rigged gates and a boss that punishes a small squad. Commit, or take the safe lane.",
+  "length": 760,
+  "squadStart": 12,
+  "speed": 16,
+  "roadHalfWidth": 4.15,
+  "fireRate": 3.1,
+  "damage": 1,
+  "gates": [
+    { "id": "g1l", "z": 80, "side": "left", "op": "add", "value": 6, "rigged": false },
+    { "id": "g1r", "z": 80, "side": "right", "op": "add", "value": 14, "rigged": false },
+    {
+      "id": "g2l",
+      "z": 210,
+      "side": "left",
+      "op": "sub",
+      "value": 18,
+      "rigged": true,
+      "hitsToFlip": 10
+    },
+    { "id": "g2r", "z": 210, "side": "right", "op": "add", "value": 4, "rigged": false },
+    {
+      "id": "g3l",
+      "z": 380,
+      "side": "left",
+      "op": "div",
+      "value": 2,
+      "rigged": true,
+      "hitsToFlip": 12
+    },
+    { "id": "g3r", "z": 380, "side": "right", "op": "add", "value": 8, "rigged": false },
+    { "id": "g4l", "z": 520, "side": "left", "op": "mul", "value": 2, "rigged": false },
+    { "id": "g4r", "z": 520, "side": "right", "op": "sub", "value": 16, "rigged": false },
+    { "id": "g5l", "z": 660, "side": "left", "op": "add", "value": 6, "rigged": false },
+    {
+      "id": "g5r",
+      "z": 660,
+      "side": "right",
+      "op": "div",
+      "value": 2,
+      "rigged": true,
+      "hitsToFlip": 12
+    }
+  ],
+  "enemies": [
+    { "id": "e1", "z": 145, "x": 1.1, "count": 10, "hp": 2, "spread": 2.2 },
+    { "id": "e2", "z": 300, "x": -0.6, "count": 12, "hp": 2, "spread": 2.4 },
+    { "id": "e3", "z": 460, "x": 0, "count": 12, "hp": 3, "spread": 2.6 },
+    { "id": "e4", "z": 720, "x": 0.2, "count": 10, "hp": 3, "spread": 2.2 }
+  ],
+  "pickups": [
+    { "id": "p1", "z": 250, "x": -2.15, "kind": "damage", "amount": 1 },
+    { "id": "p2", "z": 430, "x": -2.15, "kind": "rate", "amount": 0.7 },
+    { "id": "p3", "z": 580, "x": -2.15, "kind": "gold", "amount": 300 },
+    { "id": "p4", "z": 700, "x": 2.1, "kind": "damage", "amount": 1 }
+  ],
+  "banners": [
+    { "z": 150, "until": 230, "text": "SHOOT THE GLITCH OR BAIL RIGHT" },
+    { "z": 320, "until": 400, "text": "/2 FLIPS INTO x2" }
+  ],
+  "finale": { "kind": "boss", "name": "Mile Zero", "hp": 320, "dps": 1.05, "duration": 9 }
+}

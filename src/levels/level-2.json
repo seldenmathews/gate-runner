@@ -1,0 +1,42 @@
+{
+  "id": "2",
+  "name": "Stack the Odds",
+  "brief": "A rigged divide becomes a multiply if you shoot it. The horde gets thicker.",
+  "length": 600,
+  "squadStart": 10,
+  "speed": 15.5,
+  "roadHalfWidth": 4.2,
+  "fireRate": 3,
+  "damage": 1,
+  "gates": [
+    { "id": "g1l", "z": 90, "side": "left", "op": "mul", "value": 2, "rigged": false },
+    { "id": "g1r", "z": 90, "side": "right", "op": "add", "value": 8, "rigged": false },
+    {
+      "id": "g2l",
+      "z": 280,
+      "side": "left",
+      "op": "div",
+      "value": 2,
+      "rigged": true,
+      "hitsToFlip": 10
+    },
+    { "id": "g2r", "z": 280, "side": "right", "op": "add", "value": 5, "rigged": false },
+    { "id": "g3l", "z": 420, "side": "left", "op": "sub", "value": 10, "rigged": false },
+    { "id": "g3r", "z": 420, "side": "right", "op": "add", "value": 12, "rigged": false },
+    { "id": "g4l", "z": 540, "side": "left", "op": "mul", "value": 2, "rigged": false },
+    { "id": "g4r", "z": 540, "side": "right", "op": "add", "value": 4, "rigged": false }
+  ],
+  "enemies": [
+    { "id": "e1", "z": 180, "x": 0, "count": 12, "hp": 2, "spread": 3 },
+    { "id": "e2", "z": 480, "x": 0.4, "count": 12, "hp": 2, "spread": 2.8 }
+  ],
+  "pickups": [
+    { "id": "p1", "z": 240, "x": -2.1, "kind": "damage", "amount": 1 },
+    { "id": "p2", "z": 360, "x": 0, "kind": "gold", "amount": 200 },
+    { "id": "p3", "z": 500, "x": 2.1, "kind": "rate", "amount": 0.5 }
+  ],
+  "banners": [
+    { "z": 210, "until": 300, "text": "SHOOT /2 UNTIL IT BECOMES x2" }
+  ],
+  "finale": { "kind": "boss", "name": "Gate Warden", "hp": 240, "dps": 0.85, "duration": 8 }
+}
