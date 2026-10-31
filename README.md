@@ -63,6 +63,27 @@ Progress is a small JSON document in `expo-sqlite` (`expo-sqlite/kv-store`) on d
 
 `parseLevel` throws `LevelParseError` with the field path. A bad file fails at import time, not halfway down the road.
 
+## Native GL constraints
+
+Expo Go draws through `expo-gl`. That binding is not a full WebGL 2 driver. The native canvas is configured in one place, `src/render/nativeGl.ts`, and `canvas.native.tsx` installs it before React Three Fiber creates a renderer. The iOS Simulator crash (SIGBUS just after the scene started) came from three's defaults, not from the game meshes:
+
+- React Three Fiber enables ACES tone mapping unless told otherwise. three then builds a half-float output pass and asks for `EXT_color_buffer_float`, which Expo GL does not have.
+- `MeshStandardMaterial` uploads a 16-bit float DFG lookup (`RG16F`). Expo GL's texture upload faults on that type.
+- `WebGLState` calls `gl.pixelStorei` for premultiply, color-space conversion, and row length. Expo GL only implements `UNPACK_ALIGNMENT` and `UNPACK_FLIP_Y_WEBGL`. Anything else is dropped before it reaches native code.
+- `THREE.Clock` is deprecated and R3F still constructs one. The native guard replaces it with a `performance.now()` clock so the frame delta does not depend on `THREE.Clock`.
+
+Native rules, all enforced by that guard:
+
+- No float or half-float render targets, textures, or renderbuffers. Unsafe `texImage2D`, `texStorage2D`, and `renderbufferStorage` calls are rewritten to `RGBA8` / `UNSIGNED_BYTE`.
+- No `EXT_color_buffer_float`, and no HDR output buffer. `outputBufferType` stays unsigned byte.
+- No postprocessing and no tone mapping. `toneMapping` is `NoToneMapping`.
+- No shadow maps and no extra depth passes. The dark disc under the squad is an unlit mesh, not a shadow map.
+- No MSAA. `antialias` is false.
+- Lit surfaces use Lambert on native (`materials.native.tsx`) so the shader never samples the DFG lookup. Web keeps standard materials.
+- Do not add `DataTexture`s, `flipY` image uploads, or color-space conversions on native.
+
+`?autodrive=1` skips the level lock so `/play/1`, `/play/2`, and `/play/3` can be opened directly. The scripted advisor is the same one the unit tests use to clear all three levels.
+
 ## Juice
 
 Particles, camera shake, haptics (`expo-haptics`), and audio (`expo-audio`) are driven by simulation events. The mute chip silences both music and effects. Audio is mixed with `playsInSilentMode` so a run is still audible with the hardware silent switch on.

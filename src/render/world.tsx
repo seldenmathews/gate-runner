@@ -5,6 +5,7 @@ import { colors, opColor } from '../theme';
 import { gateLabel } from '../sim/math';
 import type { GameState, Level, PickupKind } from '../sim/types';
 import { buildGlyphGeometry } from './glyphs';
+import { createLitMaterial, LitMaterial } from './materials';
 
 function hash(n: number): number {
   let t = (n + 0x6d2b79f5) | 0;
@@ -37,15 +38,15 @@ export function Road({ level }: { level: Level }) {
     <group>
       <mesh position={[0, -0.16, -length / 2]} frustumCulled={false}>
         <boxGeometry args={[half * 2, 0.28, length]} />
-        <meshStandardMaterial color={colors.road} roughness={0.95} metalness={0.02} />
+        <LitMaterial color={colors.road} roughness={0.95} metalness={0.02} />
       </mesh>
       <instancedMesh ref={dash} args={[undefined, undefined, dashes]} frustumCulled={false}>
         <boxGeometry args={[0.08, 0.03, 1.15]} />
-        <meshStandardMaterial color={colors.rail} emissive={colors.rail} emissiveIntensity={0.35} />
+        <LitMaterial color={colors.rail} emissive={colors.rail} emissiveIntensity={0.35} />
       </instancedMesh>
       <mesh position={[-half + 0.08, 0.2, -length / 2]} frustumCulled={false}>
         <boxGeometry args={[0.12, 0.38, length]} />
-        <meshStandardMaterial
+        <LitMaterial
           color={colors.cyan}
           emissive={colors.cyan}
           emissiveIntensity={0.85}
@@ -54,7 +55,7 @@ export function Road({ level }: { level: Level }) {
       </mesh>
       <mesh position={[half - 0.08, 0.2, -length / 2]} frustumCulled={false}>
         <boxGeometry args={[0.12, 0.38, length]} />
-        <meshStandardMaterial
+        <LitMaterial
           color={colors.gold}
           emissive={colors.gold}
           emissiveIntensity={0.55}
@@ -108,7 +109,7 @@ export function City({ level }: { level: Level }) {
   return (
     <instancedMesh ref={mesh} args={[undefined, undefined, count]} frustumCulled={false}>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="#ffffff" roughness={0.85} metalness={0.04} />
+      <LitMaterial color="#ffffff" roughness={0.85} metalness={0.04} />
     </instancedMesh>
   );
 }
@@ -149,7 +150,7 @@ function GateVisual({ id, state }: { id: string; state: GameState }) {
   const [label, setLabel] = useState(() => (initial ? gateLabel(initial.op, initial.value) : ''));
   const material = useMemo(
     () =>
-      new THREE.MeshStandardMaterial({
+      createLitMaterial({
         color: colors.ink,
         emissive: colors.ink,
         emissiveIntensity: 0.9,
@@ -253,12 +254,7 @@ function PickupVisual({ id, state }: { id: string; state: GameState }) {
         {initial.kind === 'gold' ? <octahedronGeometry args={[0.28, 0]} /> : null}
         {initial.kind === 'rate' ? <torusGeometry args={[0.22, 0.07, 6, 12]} /> : null}
         {initial.kind === 'damage' ? <icosahedronGeometry args={[0.26, 0]} /> : null}
-        <meshStandardMaterial
-          color={color}
-          emissive={color}
-          emissiveIntensity={0.85}
-          toneMapped={false}
-        />
+        <LitMaterial color={color} emissive={color} emissiveIntensity={0.85} toneMapped={false} />
       </mesh>
     </group>
   );
@@ -289,37 +285,33 @@ export function Finale({ state }: { state: GameState }) {
     <group ref={group} position={[finale.x, 0, -finale.z]} visible={false}>
       <mesh position={[0, 1.15, 0.8]}>
         <boxGeometry args={[finale.kind === 'boss' ? 7.2 : 8.2, 2.3, 0.45]} />
-        <meshStandardMaterial color="#3a2a32" roughness={0.7} />
+        <LitMaterial color="#3a2a32" roughness={0.7} />
       </mesh>
       <mesh position={[-3.1, 1.15, 0.8]}>
         <boxGeometry args={[0.35, 2.5, 0.5]} />
-        <meshStandardMaterial color="#6a3038" />
+        <LitMaterial color="#6a3038" />
       </mesh>
       <mesh position={[3.1, 1.15, 0.8]}>
         <boxGeometry args={[0.35, 2.5, 0.5]} />
-        <meshStandardMaterial color="#6a3038" />
+        <LitMaterial color="#6a3038" />
       </mesh>
       {finale.kind === 'boss' ? (
         <group position={[0, 0, -0.4]}>
           <mesh position={[0, 1.15, 0]}>
             <boxGeometry args={[1.5, 1.7, 0.9]} />
-            <meshStandardMaterial
-              color={colors.boss}
-              emissive={colors.boss}
-              emissiveIntensity={0.35}
-            />
+            <LitMaterial color={colors.boss} emissive={colors.boss} emissiveIntensity={0.35} />
           </mesh>
           <mesh position={[0, 2.25, 0]}>
             <boxGeometry args={[0.7, 0.55, 0.6]} />
-            <meshStandardMaterial color="#ffd0b0" />
+            <LitMaterial color="#ffd0b0" />
           </mesh>
           <mesh position={[0.85, 1.2, 0.2]}>
             <boxGeometry args={[0.28, 0.9, 0.28]} />
-            <meshStandardMaterial color={colors.boss} />
+            <LitMaterial color={colors.boss} />
           </mesh>
           <mesh position={[-0.85, 1.2, 0.2]}>
             <boxGeometry args={[0.28, 0.9, 0.28]} />
-            <meshStandardMaterial color={colors.boss} />
+            <LitMaterial color={colors.boss} />
           </mesh>
         </group>
       ) : null}

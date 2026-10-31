@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- iOS no longer dies with SIGBUS when a level starts. The native renderer refuses half-float targets (ACES tone mapping and three's DFG lookup), drops `pixelStorei` modes Expo GL does not implement, and replaces `THREE.Clock` with `performance.now()`.
 - iOS launch no longer loads three's CommonJS entry. That file calls `process.emitWarning`, which Hermes does not implement, so Expo Go crashed on the first 3D screen. Metro now resolves `three` to `build/three.module.js`.
 
 ### Added

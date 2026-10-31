@@ -18,6 +18,7 @@ import {
 } from './geometry';
 import { MAX_PARTICLES, ParticleField } from './particles';
 import { presentEvents } from './present';
+import { LitMaterial } from './materials';
 import { City, Finale, Gates, Pickups, Road } from './world';
 
 interface SceneProps {
@@ -178,19 +179,14 @@ export function Scene({ state, inputRef, pausedRef, autodrive, level, onHud }: S
         <circleGeometry args={[1, 16]} />
         <meshBasicMaterial color="#05070d" transparent opacity={0.35} />
       </mesh>
-      <instancedMesh
-        ref={body}
-        args={[soldierGeo, undefined, MAX_SQUAD]}
-        frustumCulled={false}
-        castShadow={false}
-      >
-        <meshStandardMaterial color="#ffffff" roughness={0.62} metalness={0.08} />
+      <instancedMesh ref={body} args={[soldierGeo, undefined, MAX_SQUAD]} frustumCulled={false}>
+        <LitMaterial color="#ffffff" roughness={0.62} metalness={0.08} />
       </instancedMesh>
       <instancedMesh ref={visor} args={[visorGeo, undefined, MAX_SQUAD]} frustumCulled={false}>
         <meshBasicMaterial color={colors.visor} toneMapped={false} />
       </instancedMesh>
       <instancedMesh ref={enemies} args={[enemyGeo, undefined, enemyCount]} frustumCulled={false}>
-        <meshStandardMaterial color="#ffffff" roughness={0.55} />
+        <LitMaterial color="#ffffff" roughness={0.55} />
       </instancedMesh>
       <instancedMesh ref={shots} args={[shotGeo, undefined, MAX_PROJECTILES]} frustumCulled={false}>
         <meshBasicMaterial color={colors.gold} toneMapped={false} />

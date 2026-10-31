@@ -10,7 +10,7 @@ function canHack(gate: GateState, dist: number, speed: number, rate: number): bo
 }
 
 /**
- * Scripted advisor used by the winnable-level tests and the web autodrive preview.
+ * Scripted advisor used by the winnable-level tests and by `?autodrive=1` on web and native.
  * It hacks a rigged gate only when the flipped result is better and the bullets can land in time.
  */
 export function autoTarget(state: GameState): number {
