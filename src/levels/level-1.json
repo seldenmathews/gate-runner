@@ -1,0 +1,40 @@
+{
+  "id": "1",
+  "name": "Overpass Drill",
+  "brief": "Steer into the stronger gate. Line up on the glitch and shoot it until it flips.",
+  "length": 460,
+  "squadStart": 8,
+  "speed": 14,
+  "roadHalfWidth": 4.2,
+  "fireRate": 3.2,
+  "damage": 1,
+  "gates": [
+    { "id": "g1l", "z": 78, "side": "left", "op": "add", "value": 4, "rigged": false },
+    { "id": "g1r", "z": 78, "side": "right", "op": "add", "value": 10, "rigged": false },
+    {
+      "id": "g2l",
+      "z": 210,
+      "side": "left",
+      "op": "sub",
+      "value": 12,
+      "rigged": true,
+      "hitsToFlip": 8
+    },
+    { "id": "g2r", "z": 210, "side": "right", "op": "add", "value": 3, "rigged": false },
+    { "id": "g3l", "z": 330, "side": "left", "op": "mul", "value": 2, "rigged": false },
+    { "id": "g3r", "z": 330, "side": "right", "op": "add", "value": 6, "rigged": false }
+  ],
+  "enemies": [
+    { "id": "e1", "z": 145, "x": 0, "count": 8, "hp": 1, "spread": 2.4 },
+    { "id": "e2", "z": 400, "x": 0, "count": 8, "hp": 2, "spread": 2.2 }
+  ],
+  "pickups": [
+    { "id": "p1", "z": 255, "x": -2.2, "kind": "rate", "amount": 0.6 },
+    { "id": "p2", "z": 290, "x": 0, "kind": "gold", "amount": 150 }
+  ],
+  "banners": [
+    { "z": 0, "until": 55, "text": "DRAG TO STEER" },
+    { "z": 155, "until": 230, "text": "LINE UP AND SHOOT THE GLITCH" }
+  ],
+  "finale": { "kind": "wall", "name": "Barricade", "hp": 70, "dps": 0.45, "duration": 6 }
+}
